@@ -7,4 +7,4 @@
 - MegaLoot
 
 ## Changed
-- Updated Configs to match test server
+- Updated Configs to match test server (?)
