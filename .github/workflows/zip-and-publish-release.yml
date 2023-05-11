@@ -1,0 +1,60 @@
+name: 'Zip-And-Publish-Release'
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: 'Modpack Version. Example: 0.5.6'
+        required: true
+      release-type:
+        type: choice
+        required: true
+        description: 'Alpha, Beta, Release'
+        options:
+          - 'Alpha'
+          - 'Beta'
+          - 'Release'
+env:
+  MODPACK_VERSION: ${{ github.event.inputs.version }}
+  RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Print version and release type
+        run: |
+          echo "MODPACK_VERSION: ${{ env.MODPACK_VERSION }}"
+          echo "RELEASE TYPE: ${{ env.RELEASE_TYPE }}"
+      - uses: vimtor/action-zip@v1
+        with:
+          files: config mods manifest.json modlist.html
+          recursive: false
+          dest: GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+      - uses: actions/upload-artifact@v1
+        with:
+          name: gflcraft-artifact
+          path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: GFLCraft-v${{ env.MODPACK_VERSION }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload zip artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+          asset_name: GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+          asset_content_type: application/zip
+          
+      
