@@ -59,7 +59,7 @@ jobs:
           draft: false
           prerelease: false
           release_name: GFLCraft-v${{ env.MODPACK_VERSION }}
-          tag_name: ${{ github.ref }}
+          tag_name: release-${{ github.sha }}
           body_path: CHANGELOG.md
        # env:
        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
