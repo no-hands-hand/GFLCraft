@@ -20,6 +20,7 @@ env:
   RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 jobs:
   build-zip:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +44,7 @@ jobs:
           draft: false
           prerelease: false
           release_name: GFLCraft-v${{ env.MODPACK_VERSION }}
-          tag_name: tags/gflcraft-v${{ env.MODPACK_VERSION }}
+          tag_name: gflcraft-v${{ env.MODPACK_VERSION }}
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
