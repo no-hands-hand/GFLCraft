@@ -1,4 +1,4 @@
-# Release v0.5.9
+# Release v0.5.8.1
 
 ## Added
 - 
@@ -7,4 +7,4 @@
 - MegaLoot
 
 ## Changed
-- Updated Configs to match test server (?)
+- 
