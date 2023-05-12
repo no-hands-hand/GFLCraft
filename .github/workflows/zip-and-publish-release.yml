@@ -45,7 +45,7 @@ jobs:
           artifacts: "${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip"
           bodyFile: "CHANGELOG.md"
           tag: "gflcraft-v${{ env.MODPACK_VERSION }}"
-          commit: "gflcraft-v${{ env.MODPACK_VERSION }}-${{ github.sha }}"
+          commit: "main"
           
 #      - name: Push tag
 #        uses: laputansoft/github-tag-action@v4.6
