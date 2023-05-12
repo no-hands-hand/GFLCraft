@@ -1,4 +1,4 @@
-# Release v0.5.8.1
+# Release v0.5.8.3
 
 ## Added
 - 
@@ -7,4 +7,4 @@
 - MegaLoot
 
 ## Changed
-- 
+- Structure of upload - now conforms with typical CurseForge export structure
