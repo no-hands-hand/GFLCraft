@@ -18,7 +18,7 @@ on:
 env:
   MODPACK_VERSION: ${{ github.event.inputs.version }}
   RELEASE_TYPE: ${{ github.event.inputs.release-type }}
-  github_token: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   build-zip:
     permissions: write-all
