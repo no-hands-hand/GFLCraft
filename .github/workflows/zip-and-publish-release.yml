@@ -37,6 +37,11 @@ jobs:
         with:
           name: gflcraft-artifact
           path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+      - name: Push tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: gflcraft-v${{ env.MODPACK_VERSION }}
       - name: release
         uses: actions/create-release@v1
         id: create_release
@@ -47,11 +52,11 @@ jobs:
           tag_name: gflcraft-v${{ env.MODPACK_VERSION }}
           body_path: CHANGELOG.md
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload zip artifact
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
