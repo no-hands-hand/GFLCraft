@@ -18,6 +18,7 @@ on:
 env:
   MODPACK_VERSION: ${{ github.event.inputs.version }}
   RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+  github_token: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   build-zip:
     permissions: write-all
@@ -53,7 +54,6 @@ jobs:
         uses: actions/create-release@v1
         id: create_release
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
           prerelease: false
           release_name: GFLCraft-v${{ env.MODPACK_VERSION }}
