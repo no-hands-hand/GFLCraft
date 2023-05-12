@@ -39,9 +39,16 @@ jobs:
           path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
       - name: Push tag
         uses: laputansoft/github-tag-action@v4.6
+        id: push_tag
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: gflcraft-v${{ env.MODPACK_VERSION }}
+      - name: Print outputs from tag push
+        run: |
+          echo "new_tag: ${{ steps.push_tag.outputs.new_tag }}"
+          echo "latest_hash: ${{ steps.push_tag.outputs.latest_hash }}"
+          echo "previous_tag: ${{ steps.push_tag.outputs.previous_tag }}"
+          echo "changelog: ${{ steps.push_tag.outputs.changelog }}"
       - name: release
         uses: actions/create-release@v1
         id: create_release
