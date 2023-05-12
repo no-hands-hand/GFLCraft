@@ -38,14 +38,7 @@ jobs:
         with:
           name: gflcraft-artifact
           path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
-      - name: Create Release
-        id: create_release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip"
-          bodyFile: "CHANGELOG.md"
-          tag: "gflcraft-v${{ env.MODPACK_VERSION }}"
-          commit: "main"
+      
           
 #      - name: Push tag
 #        uses: laputansoft/github-tag-action@v4.6
@@ -59,6 +52,14 @@ jobs:
 #          echo "latest_hash: ${{ steps.push_tag.outputs.latest_hash }}"
 #          echo "previous_tag: ${{ steps.push_tag.outputs.previous_tag }}"
 #          echo "changelog: ${{ steps.push_tag.outputs.changelog }}"
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip"
+          bodyFile: "CHANGELOG.md"
+          tag: "gflcraft-v${{ env.MODPACK_VERSION }}"
+          commit: "main"
 #      - name: release
 #        uses: actions/create-release@v1
 #        id: create_release
