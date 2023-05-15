@@ -29,15 +29,17 @@ jobs:
         run: |
           echo "MODPACK_VERSION: ${{ env.MODPACK_VERSION }}"
           echo "RELEASE TYPE: ${{ env.RELEASE_TYPE }}"
-      - uses: vimtor/action-zip@v1
+      - name: Create zip
+        uses: vimtor/action-zip@v1
         with:
           files: config mods manifest.json modlist.html
           recursive: false
-          dest: GFLCraft-v${{ env.MODPACK_VERSION }}.zip
-      - uses: actions/upload-artifact@v1
+          dest: GFLCraft-v${{ env.MODPACK_VERSION }}-${{ github.event.inputs.release-type }}.zip
+      - name: Upload zip to Artifact
+        uses: actions/upload-artifact@v1
         with:
           name: gflcraft-artifact
-          path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+          path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}-${{ github.event.inputs.release-type }}.zip
       
           
 #      - name: Push tag
@@ -56,7 +58,7 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip"
+          artifacts: "${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}-${{ github.event.inputs.release-type }}.zip"
           bodyFile: "CHANGELOG.md"
           tag: "gflcraft-v${{ env.MODPACK_VERSION }}"
           commit: "main"
@@ -73,14 +75,14 @@ jobs:
 #          body_path: CHANGELOG.md
        # env:
        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload zip artifact
+      - name: Upload zip to Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}.zip
-          asset_name: GFLCraft-v${{ env.MODPACK_VERSION }}.zip
+          asset_path: ${{ github.workspace }}/GFLCraft-v${{ env.MODPACK_VERSION }}-${{ github.event.inputs.release-type }}.zip
+          asset_name: GFLCraft-v${{ env.MODPACK_VERSION }}-${{ github.event.inputs.release-type }}.zip
           asset_content_type: application/zip
           
       
