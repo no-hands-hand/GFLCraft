@@ -17,6 +17,9 @@
 - Lazy AE2
 - Trash Slot (functionality taken over by Quark)
 - OreExcavator (replaced with FTB Ultimine)
+- ExtraCells (depenedent on AE2)
+- JustEnoughEnergistics (dependent on AE2)
+- ThaumicEnergistics (dependent on AE2)
 
 ## Changed
 - Boosted spawn rate of TAIGA ores by 1 each per chunk
